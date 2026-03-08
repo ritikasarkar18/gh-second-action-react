@@ -1,4 +1,4 @@
-name: Second GitHub Workflpow
+name: Deploy project
 on: 
     push:
         branches: ["master"]
@@ -17,3 +17,20 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Install nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying project..."
